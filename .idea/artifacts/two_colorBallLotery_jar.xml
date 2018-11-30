@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="two-colorBallLotery:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/two_colorBallLotery_jar</output-path>
+    <root id="archive" name="two-colorBallLotery.jar">
+      <element id="module-output" name="two-colorBallLotery" />
+    </root>
+  </artifact>
+</component>

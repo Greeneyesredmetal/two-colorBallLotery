@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_two-colorballlotery" default="compile.module.two-colorballlotery">
+  <dirname property="module.two-colorballlotery.basedir" file="${ant.file.module_two-colorballlotery}"/>
+  
+  <property name="module.jdk.home.two-colorballlotery" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.two-colorballlotery" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.two-colorballlotery" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.two-colorballlotery" value="-encoding GBK -source 10 -target 10 ${compiler.args}"/>
+  
+  <property name="two-colorballlotery.output.dir" value="${module.two-colorballlotery.basedir}/out/production/two-colorBallLotery"/>
+  <property name="two-colorballlotery.testoutput.dir" value="${module.two-colorballlotery.basedir}/out/test/two-colorBallLotery"/>
+  
+  <path id="two-colorballlotery.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="two-colorballlotery.module.production.classpath">
+    <path refid="${module.jdk.classpath.two-colorballlotery}"/>
+  </path>
+  
+  <path id="two-colorballlotery.runtime.production.module.classpath">
+    <pathelement location="${two-colorballlotery.output.dir}"/>
+  </path>
+  
+  <path id="two-colorballlotery.module.classpath">
+    <path refid="${module.jdk.classpath.two-colorballlotery}"/>
+    <pathelement location="${two-colorballlotery.output.dir}"/>
+  </path>
+  
+  <path id="two-colorballlotery.runtime.module.classpath">
+    <pathelement location="${two-colorballlotery.testoutput.dir}"/>
+    <pathelement location="${two-colorballlotery.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.two-colorballlotery">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.two-colorballlotery">
+    <patternset refid="excluded.from.module.two-colorballlotery"/>
+  </patternset>
+  
+  <path id="two-colorballlotery.module.sourcepath">
+    <dirset dir="${module.two-colorballlotery.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.two-colorballlotery" depends="compile.module.two-colorballlotery.production,compile.module.two-colorballlotery.tests" description="Compile module two-colorBallLotery"/>
+  
+  <target name="compile.module.two-colorballlotery.production" depends="register.custom.compilers" description="Compile module two-colorBallLotery; production classes">
+    <mkdir dir="${two-colorballlotery.output.dir}"/>
+    <javac2 destdir="${two-colorballlotery.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.two-colorballlotery}/javac">
+      <compilerarg line="${compiler.args.two-colorballlotery}"/>
+      <bootclasspath refid="two-colorballlotery.module.bootclasspath"/>
+      <classpath refid="two-colorballlotery.module.production.classpath"/>
+      <src refid="two-colorballlotery.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.two-colorballlotery"/>
+    </javac2>
+    
+    <copy todir="${two-colorballlotery.output.dir}">
+      <fileset dir="${module.two-colorballlotery.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.two-colorballlotery.tests" depends="register.custom.compilers,compile.module.two-colorballlotery.production" description="compile module two-colorBallLotery; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.two-colorballlotery" description="cleanup module">
+    <delete dir="${two-colorballlotery.output.dir}"/>
+    <delete dir="${two-colorballlotery.testoutput.dir}"/>
+  </target>
+</project>
